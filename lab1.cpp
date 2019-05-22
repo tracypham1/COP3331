@@ -18,7 +18,7 @@ int main()
         cin >> num;
 
         //check if input is valid
-        if((num < 1) || (num > 10))
+        if((num < 1) || (num > 10)) //0.5 causes error
         {
             bad = true;
             cout << "Bad input..." << endl;
