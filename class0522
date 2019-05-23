@@ -134,3 +134,46 @@ Readings
 - the big three are deconstructor, copy constructor, and copy assingment operator
 - rule of three describes if a programmer explicity defines any of these three functions, they should define all three
 
+
+Class
+Constructors and Destructors
+- constructors initialize objects, Deconstructors clean objects aka free the memory 
+Accessors and Mutators
+- accessors denoted by 'const' bc no value will be changed
+- Object Desingn Exercise: soda machine header file
+    #include <string>
+
+    class SodaMachine{
+        private:
+            (data members...)
+        public:
+            (funcitons accessors and mutators..)
+    };
+Class Desingn
+- What data members does it need?
+- How are users going to interact with the class?
+Implementing Functions
+- void BankAcct::print(), :: means print belongs to BankAcct class
+Alternative Constructor Syntax
+- practice this bc it shows up later
+Note: always think about what kind of error can occur and prepare for it
+Implementation Exercise
+- i guess look at it, do you understand everything?
+Using Classes
+- Anonymous object??
+Class Pointers
+- strptr->length() == (*strptr).length
+- '*' dereference operator
+- Allows more control of when contructor is called w 'new' and destructor w 'delete'
+Exercise
+- transferTo(pointer parameter)
+- you can access private members of a different 'bank account' of same class type through a member function aka a function inside the class 
+Inline Function Definitions
+- yeah do it if u want
+Vectors of Objects
+- vector<className> vectorName;
+- emplace_back vs push_back
+
+
+TODO:
+- creat a list of all the functions we've learned for stings, vectors, etc.
