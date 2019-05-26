@@ -136,6 +136,9 @@ void makeMove(move_t mov)
 {
   //TODO:  update the turtle status and canvas based on the given move
   int startRow, startCol;
+  const int END_ROW = canvas.size();
+  const int END_COL = canvas[0].size();
+  int i, j;
 
   switch(mov.type){
     case PEN_UP:
@@ -183,6 +186,46 @@ void makeMove(move_t mov)
         //add distance to col if facing U or D
         
 end of pen deown*******************/
+
+      //if statement pt.2
+
+      //the grid starts at (0, 0)
+      if(mov.type == PEN_DOWN){
+        //switch controls movement based on direction pointing to 
+        switch(turtle.facing)
+        case UP:
+          for(i = turtle.loc.row, j = turtle.loc.col; (i < turtle.loc.row+move.dist) || (i < 0); i++){
+            canvas[i][j] = "*";
+          }
+          turtle.loc.row = i;
+
+          break;
+        case DOWN:
+          for(i = turtle.loc.row, j = turtle.loc.col; (i < turtle.loc.row+move.dist) || (i < END_ROW); i++){
+            canvas[i][j] = "*";
+          }
+          turtle.loc.row = i;
+
+          break;
+        case RIGHT:
+          for(i = turtle.loc.row, j = turtle.loc.col; (j < turtle.loc.col+move.dist) || (j < END_COL); j++){
+            canvas[i][j] = "*";
+          }
+          turtle.loc.col = j;
+        
+          break;
+        case LEFT:
+          for(i = turtle.loc.row, j = turtle.loc.col; (j < turtle.loc.col-move.dist) || (j < 0); j--){
+            canvas[i][j] = "*";
+          }
+          turtle.loc.col = j;
+
+          break;
+        default:
+          return;
+        
+      }
+
       else{
         //change the status of the turtle w same logic
         switch(turtle.facing){
