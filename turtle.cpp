@@ -70,19 +70,19 @@ void printMove(move_t mov)
   switch (mov.type)
   {
   case PEN_UP:
-    cout << "Pen up";
+    cout << " Pen up ";
     break;
   case PEN_DOWN:
-    cout << "Pen down";
+    cout << " Pen down ";
     break;
   case TURN_LEFT:
-    cout << "Turn left";
+    cout << " Turn left ";
     break;
   case TURN_RIGHT:
-    cout << "Turn right";
+    cout << " Turn right ";
     break;
   case FORWARD:
-    cout << "Forward " << mov.dist;
+    cout << " Forward " << mov.dist;
     break;
   default:
     break;
@@ -106,28 +106,27 @@ move_t getMove(ifstream& in)
   //TODO:  write code to read in the move_t from in
   
   move_t currMove;
-  currMove.type = UNKNOWN;
-  currMove.dist = 0;
   string input = " ";
   in >> input;
 
-  //stop if type DNE
-  if(input == " ")
-    return currMove;
-
-  //assign the move_t variable to return.
+  //assign the move_t variable to return
   if(input == "PU")
-      currMove.type = PEN_UP;
+    currMove.type = PEN_UP;
   else if(input == "PD")
-      currMove.type == PEN_DOWN;
+    currMove.type = PEN_DOWN;
   else if(input == "TL")
-      currMove.type = TURN_LEFT;
+    currMove.type = TURN_LEFT;
   else if(input == "TR")
-      currMove.type = TURN_RIGHT;
+    currMove.type = TURN_RIGHT;
   else if(input == "F"){
-      currMove.type = FORWARD;
-      in >> currMove.dist;
+    currMove.type = FORWARD;
+    in >> currMove.dist;
+    if(currMove.dist<0){
+      currMove.type = UNKNOWN;
+    }
   }
+  else
+    currMove.type = UNKNOWN;
 
   return currMove;
 }
@@ -136,8 +135,8 @@ void makeMove(move_t mov)
 {
   //TODO:  update the turtle status and canvas based on the given move
   int startRow, startCol;
-  const int END_ROW = canvas.size();
-  const int END_COL = canvas[0].size();
+  const int LAST_ROW = canvas.size()-1;
+  const int LAST_COL = canvas[0].size()-1;
   int i, j;
 
   switch(mov.type){
@@ -148,140 +147,111 @@ void makeMove(move_t mov)
       turtle.pendown = true;
       break;
     case TURN_LEFT:
-      turtle.facing = LEFT;
+      if(turtle.facing == UP)
+        turtle.facing = LEFT;
+      else if(turtle.facing == LEFT)
+        turtle.facing = DOWN;
+      else if(turtle.facing == DOWN)
+        turtle.facing = RIGHT;
+      else if(turtle.facing == RIGHT)
+        turtle.facing = UP;
       break;
     case TURN_RIGHT:
-      turtle.facing = RIGHT;
+      if(turtle.facing == UP)
+        turtle.facing = RIGHT;
+      else if(turtle.facing == RIGHT)
+        turtle.facing = DOWN;
+      else if(turtle.facing == DOWN)
+        turtle.facing = LEFT;
+      else if(turtle.facing == LEFT)
+        turtle.facing = UP;
       break;
     case FORWARD:
-
-    /**************if pen is down operations
-      //only change values if pen is down
-      if(turtle.pendown){
-        //add the distance to row if facing L or R
-        if(turtle.facing == RIGHT){
-          //if the move distance is within canvas
-          if(turtle.loc.col+mov.dist <= canvas[0].size)
-            for(startCol = turtle.loc.col; startCol < mov.dist; startCol++)
-              canvas[turtle.loc.row][startCol] = "*";
-          //if the move distance goes out of grid: stop loop at end
-          else{
-            for(startCol = turtle.loc.col; startCol < canvas[i].size; startCol++)
-              canvas[turtle.loc.row][startCol] = "*";
-          }
-          
-        }
-        else if(turtle.facing == LEFT){
-          //if the move distance is within canvas
-          if(turtle.loc.col-mov.dist >= 0)
-            for(startCol = turtle.loc.col; startCol < mov.dist; startCol--)
-              canvas[turtle.loc.row][startCol] = "*";
-          //if the move distance goes out of grid: stop loop at end
-          else{
-            for(startCol = turtle.loc.col; startCol < canvas[i].size; startCol--)
-              canvas[turtle.loc.row][startCol] = "*";
+      if(turtle.facing == UP){
+        if(turtle.loc.row < mov.dist)
+          mov.dist = turtle.loc.row;
+        if(turtle.pendown){
+          for(int i = 0; i <= mov.dist; i++){
+            canvas[turtle.loc.row-i][turtle.loc.col] = '*';
           }
         }
-
-        //add distance to col if facing U or D
-        
-end of pen deown*******************/
-
-      //if statement pt.2
-
-      //the grid starts at (0, 0)
-      if(mov.type == PEN_DOWN){
-        //switch controls movement based on direction pointing to 
-        switch(turtle.facing)
-        case UP:
-          for(i = turtle.loc.row, j = turtle.loc.col; (i < turtle.loc.row+move.dist) || (i < 0); i++){
-            canvas[i][j] = "*";
-          }
-          turtle.loc.row = i;
-
-          break;
-        case DOWN:
-          for(i = turtle.loc.row, j = turtle.loc.col; (i < turtle.loc.row+move.dist) || (i < END_ROW); i++){
-            canvas[i][j] = "*";
-          }
-          turtle.loc.row = i;
-
-          break;
-        case RIGHT:
-          for(i = turtle.loc.row, j = turtle.loc.col; (j < turtle.loc.col+move.dist) || (j < END_COL); j++){
-            canvas[i][j] = "*";
-          }
-          turtle.loc.col = j;
-        
-          break;
-        case LEFT:
-          for(i = turtle.loc.row, j = turtle.loc.col; (j < turtle.loc.col-move.dist) || (j < 0); j--){
-            canvas[i][j] = "*";
-          }
-          turtle.loc.col = j;
-
-          break;
-        default:
-          return;
-        
+        turtle.loc.row -= mov.dist;
       }
-
-      else{
-        //change the status of the turtle w same logic
-        switch(turtle.facing){
-        case UP:
-          turtle.loc.row += mov.dist;
-          break;
-        case DOWN:
-          turtle.loc.row -= mov.dist;
-          break;
-        case RIGHT:
-          turtle.loc.col += mov.dist;
-          break;
-        case LEFT:
-          turtle.loc.col -= mov.dist;
-          break;
+      else if(turtle.facing == LEFT){
+        if(turtle.loc.col < mov.dist)
+          mov.dist = turtle.loc.col;
+        if(turtle.pendown){
+          for(int i = 0; i <= mov.dist; i++){
+            canvas[turtle.loc.row][turtle.loc.col-i] = '*';
+          }
         }
+        turtle.loc.col -= mov.dist;
       }
+      else if(turtle.facing == DOWN){
+        if(turtle.loc.row + mov.dist > canvas.size()-1)
+          mov.dist = canvas.size()-1 - turtle.loc.row;
+        if(turtle.pendown){
+          for(int i = 0; i <= mov.dist; i++){
+            canvas[turtle.loc.row+i][turtle.loc.col] = '*';
+          }
+        }
+        turtle.loc.row += mov.dist;
+      }
+      else if(turtle.facing == RIGHT){
+        if(turtle.loc.col + mov.dist > canvas[0].size()-1)
+          mov.dist = canvas[0].size()-1 - turtle.loc.col;
+        if(turtle.pendown){
+          for(int i = 0; i <= mov.dist; i++){
+            canvas[turtle.loc.row][turtle.loc.col+i] = '*';
+          }
+        }
+        turtle.loc.col += mov.dist;
+      }
+      break; //end of case FORWARD
     default:
       break;
   }//end big switch
-  
-  //if the current row and col > grid's row and col
-  //set the loc to the appropriate edge
-  //account for negatives
-
-
-
-
 }//end function
 
 int main()
 {
   //TODO:  initialize turtle
+  turtle.pendown = false;
+  turtle.facing = DOWN;
+  turtle.loc.row = 0;
+  turtle.loc.col = 0;
+
+  string file;
+  cout << "Enter file: ";
+  cin >> file;
 
   //TODO:  open input.txt
   ifstream in;
-  in.open("input.txt");
+  in.open(file);
   if(in.fail()){
     cout << "Failed to open.";
     return 1;
   }
 
   //TODO:  get canvas size and build the canvas
-  int rows, cols;
-  in >> rows >> cols;
+  coord_t size;
+  in >> size.row >> size.col;
+  buildCanvas(size);
 
   //TODO:  get moves from input.txt
-  move_t nextMove;
-  nextMove = getMove(in);
+  while(!in.eof()){
+    move_t nextMove;
+    nextMove = getMove(in);
+    printMove(nextMove);
+    cout << endl;
 
-  //make moves
-  while(nextMove.type != UNKNOWN){
-    makeMove(nextMove);
+    //make moves
+    if(nextMove.type != UNKNOWN)
+      makeMove(nextMove);
   }
 
   //Print final result
+  cout << "final canvas: " << endl;
   printCanvas();
 
   //close file
