@@ -88,8 +88,25 @@ Reading
     - the stack: region a function's local variables are allocated during a function call,
         - this is allocated and deallocated automatically, so its called automatic memory
     - the heap: region where the 'new' operator allocated memory, and where 'delete' deallocates it,
-       - the region is also called free store
-http://file.allitebooks.com/20151026/Fundamentals%20of%20Logic%20Design,%207th%20Edition.pdf
+       - the region is also called free stored
+
+class0529
+Arrays of Objects
+- you need a default constructor to create a vector of objects
+this Keyword
+- only legal inside member functions (Class::)
+- 'this' is a pointer to the entire object in which it is called
+- common use is shadowed data members
+- EX: if the paramater passed in is called height and so it the private data member, do this->height = height;
+How to Overload
+- object always has to be on left side of operation
+Resrtictions on Overloading
+- read more
+Operator Chaining
+- 
+
+//practice constructors(and alternate format) and destructors on hackerrank or sum
+
 
 
 

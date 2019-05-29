@@ -251,7 +251,6 @@ int main()
   }
 
   //Print final result
-  cout << "final canvas: " << endl;
   printCanvas();
 
   //close file
