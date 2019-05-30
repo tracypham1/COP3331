@@ -221,13 +221,9 @@ int main()
   turtle.loc.row = 0;
   turtle.loc.col = 0;
 
-  string file;
-  cout << "Enter file: ";
-  cin >> file;
-
   //TODO:  open input.txt
   ifstream in;
-  in.open(file);
+  in.open("input.txt");
   if(in.fail()){
     cout << "Failed to open.";
     return 1;
