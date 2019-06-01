@@ -53,8 +53,9 @@ Reading
 //do challenge activities from here on
 7.6 Functions with C String Array Parameter
 - string is passed as a char array
-- string parameter wont need a second size variable array bc you can use strlen()
+- string parameter wont need a second size variable array bc you can use strlen(); char string[] & char* string >> strlen(string)
 - passing a c string to a function creates a pointer to the first char
+- incriment thru the string as it is a array of type char
 7.7 Pass by Reference
 - pass by value, means the function copies the value and the varibale in main is not changed after the function exits
 - pass by reference with '&' before the variable in the function header changes that varibale in main 
@@ -77,9 +78,12 @@ Reading
         ReverseVals(userValues);
     }
 - in summary
-    - strive to user return values
-    - define functions parameter as pass by value, except large items of ten or more elements
+    - strive to use return values
+    - define functions parameter as pass by value
+    - pass by reference large items of ten or more elements
     - pass by reference, aka use '&' whenever vector or string will be modified
+    - EX: pass string as (string& myString) and access characters with {myString.at(i)}
+        - get the size using myString.size() bc thats for a vector/array, this is not the actual string but a reference to the char array so u can't use strlen()
 7.10 Memory Regions: Heap/Stack
 - A program's memory usage usually found in:
     - code: region where program instructions are stored

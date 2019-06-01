@@ -100,7 +100,7 @@ Readings
     - EX: needed when constructor opens a file, deconstructor can close it
 5.16 Copy Constructor
 - for a constructor to copy an entire object, known as a deep copy, as a local variable that is called automitcially
-    - recall constructors are a specail class member that is called automatically when object is created 
+    - recall constructors are a special class member that is called automatically when object is created 
     - recall overloading uses different return types and parameters to create different constructors of the same name
 - EX: copy contructor //PRACTIVE THIS
     class MyClass {
@@ -109,6 +109,20 @@ Readings
             MyClass(const MyClass& origClass);
             ...
     };
+- EX: 
+    CarCounter::CarCounter(){
+        carCount = 0;
+    }
+
+    CarCounter::CarCounter(const CarCounter& parking){
+        carCount = parking.CarCount;
+    }
+
+    int main(){
+        CarCounter parking;
+        ....
+        CountPrinter(parking);
+    }
 5.17 Copy Assignment Operator
 - sometimes assigningi class objects to each other using '=' causes problems
     - so overload with a copy assignment operator, or assignment operator which looks like

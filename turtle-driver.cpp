@@ -77,7 +77,7 @@ int main(){
 
     //open the file
     ifstream in;
-    in.open("input.txt");
+    in.open("lab2-big-input.txt");
     if(in.fail()){
         cout << "Failed to open.";
         return 1;

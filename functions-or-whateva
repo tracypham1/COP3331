@@ -31,3 +31,10 @@ using namespace std;
 - vector.push_back(value);
 - vecor.back();
 - vector.pop_back(); //removes last element
+#alternate way to write a constructor
+- instead of Class::Class(){
+    dataMember = value;
+}
+- write Class::Class(): dataMember(value), ... {
+
+}

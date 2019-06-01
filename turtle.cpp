@@ -104,7 +104,6 @@ void printCanvas()
 move_t getMove(ifstream& in)
 {
   //TODO:  write code to read in the move_t from in
-  
   move_t currMove;
   string input = " ";
   in >> input;
