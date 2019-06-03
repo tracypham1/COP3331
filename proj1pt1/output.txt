@@ -1,0 +1,14 @@
+Passage 1 (start):
+"(set: $debug to false)(set: $facebook to false)Your big project in COP 3331 is due tomorrow.  Do you [[start debugging]], [[log onto Facebook]], or [[watch Netflix]]?"
+
+Passage 2 (start debugging):
+"(set: $debug to true) You work late into the night, but you think you have the code working before the [[deadline]]."
+
+Passage 3 (log onto Facebook):
+"(set:  $facebook to true) Your friend posted yet another picture of food, and you got friend requests from two people you've never met.   You make a post about how stupid school projects are and start cyberstalking someone cute you saw the other day.  Before you know it, you've missed the [[deadline]] for submitting your project!"
+
+Passage 4 (watch Netflix):
+"There's an amazing new crime drama on.  In fact, it's so good that you find yourself watching an entire season, and the next thing you know, sunlight is streaming in through the window--it's already morning, way past the [[deadline]] for turning in your project!  Maybe you can get an extension? "
+
+Passage 5 (deadline):
+"(if: $debug is true)[When you get your grade back, you smile smugly--an A+!](else:)[You missed the due date and got an F.  Oh no!  (if: $facebook is true)[Your friends take you out to help cheer you up.]]"
