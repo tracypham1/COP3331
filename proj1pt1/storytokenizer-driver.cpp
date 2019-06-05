@@ -36,7 +36,7 @@ int main()
     PassageToken passtok = st.nextPassage();
     cout << "Passage " << ++passnum 
          << " (" << passtok.getName() << "):  " << endl 
-         << '\"' << passtok.getText() << '\"' << endl << endl;
+         << '\"' << passtok.getText() << '\"' << endl;
   }
 
   return 0;

@@ -119,10 +119,10 @@ move_t getMove(ifstream& in)
     currMove.type = TURN_RIGHT;
   else if(input == "F"){
     currMove.type = FORWARD;
-    in >> currMove.dist;
-    if(currMove.dist<0){
-      currMove.type = UNKNOWN;
-    }
+    int distance;
+    in >> distance;
+    if(distance >= 0)
+      currMove.dist = distance;
   }
   else
     currMove.type = UNKNOWN;
@@ -136,7 +136,6 @@ void makeMove(move_t mov)
   int startRow, startCol;
   const int LAST_ROW = canvas.size()-1;
   const int LAST_COL = canvas[0].size()-1;
-  int i, j;
 
   switch(mov.type){
     case PEN_UP:
@@ -166,6 +165,8 @@ void makeMove(move_t mov)
         turtle.facing = UP;
       break;
     case FORWARD:
+
+/***************************************************************BEGINNING OF FORWARD CASE PT 1 ***************************
       if(turtle.facing == UP){
         if(turtle.loc.row < mov.dist)
           mov.dist = turtle.loc.row;
@@ -206,9 +207,88 @@ void makeMove(move_t mov)
         }
         turtle.loc.col += mov.dist;
       }
+***********************************************END OF FORWARD CASE PT.1*************************************************/
+      cout << turtle.loc.row << " " << turtle.loc.col << " is facing " << turtle.facing << endl ;
+      int i, j;
+      //change the ' ' to '*' if pen down
+      if(turtle.pendown == true){
+        if(turtle.facing == DOWN){
+          for(i = 0; ((i <= mov.dist) && (turtle.loc.row+i <= LAST_ROW)); i++){
+            canvas[turtle.loc.row+i][turtle.loc.col] = '*';
+            }
+          i--;
+          if((turtle.loc.row += i) > LAST_ROW)
+            turtle.loc.row = LAST_ROW;
+          else
+            return;
+          
+        }
+        if(turtle.facing == UP){
+          for(i = 0; (i <= mov.dist) && ((turtle.loc.row-i) >= 0); i++){
+            canvas[turtle.loc.row-i][turtle.loc.col] = '*';
+            }
+          i--;
+          if((turtle.loc.row -= i) < 0)
+            turtle.loc.row = 0;
+          else
+            return;
+        }
+        if(turtle.facing == LEFT){
+          for(j = 0; ((j <= mov.dist) && ((turtle.loc.col-j) >= 0)); j++){
+            canvas[turtle.loc.row][turtle.loc.col-j] = '*';
+            }
+          j--;
+          if((turtle.loc.col -= j) < 0)
+            turtle.loc.col = 0;
+          else 
+            return;
+        }
+        if(turtle.facing == RIGHT){
+          for(j = 0; (j <= mov.dist) && (turtle.loc.col+j<=LAST_COL); j++){
+            canvas[turtle.loc.row][turtle.loc.col+j] = '*';
+          }
+          j--;
+          if((turtle.loc.col += j) > LAST_COL)
+            turtle.loc.col = LAST_COL;
+          else
+            cout << "after it points right location is, j: " << j << turtle.loc.row << " " << turtle.loc.col << endl;
+            return;
+          
+        }
+      }//end if
+
+      //change location only if pen is up
+      else if(turtle.pendown == false){
+        if(turtle.facing == DOWN){
+          turtle.loc.row += mov.dist;
+          if(turtle.loc.row > LAST_ROW)
+            turtle.loc.row = LAST_ROW;
+        }
+        else if(turtle.facing == UP){
+          turtle.loc.row -= mov.dist;
+          if(turtle.loc.row < 0)
+            turtle.loc.row = 0;
+        }
+        else if(turtle.facing == LEFT){
+          turtle.loc.col -= mov.dist;
+          if(turtle.loc.col < 0)
+            turtle.loc.col = 0;
+        }
+        else if(turtle.facing == RIGHT){
+          turtle.loc.col += mov.dist;
+          if(turtle.loc.col > LAST_COL)
+            turtle.loc.col = LAST_COL;
+        }
+
+
+      }//end else
+
+
       break; //end of case FORWARD
     default:
       break;
+
+    
   }//end big switch
 }//end function
 
@@ -237,8 +317,6 @@ int main()
   while(!in.eof()){
     move_t nextMove;
     nextMove = getMove(in);
-    printMove(nextMove);
-    cout << endl;
 
     //make moves
     if(nextMove.type != UNKNOWN)
