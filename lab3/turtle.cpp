@@ -208,7 +208,6 @@ void makeMove(move_t mov)
         turtle.loc.col += mov.dist;
       }
 ***********************************************END OF FORWARD CASE PT.1*************************************************/
-      cout << turtle.loc.row << " " << turtle.loc.col << " is facing " << turtle.facing << endl ;
       int i, j;
       //change the ' ' to '*' if pen down
       if(turtle.pendown == true){
@@ -251,7 +250,6 @@ void makeMove(move_t mov)
           if((turtle.loc.col += j) > LAST_COL)
             turtle.loc.col = LAST_COL;
           else
-            cout << "after it points right location is, j: " << j << turtle.loc.row << " " << turtle.loc.col << endl;
             return;
           
         }

@@ -1,0 +1,193 @@
+Readings
+5.1 Objects Introduction
+- objects are just a grouping of data 
+- abstraction is the act of using the objects get certain encapsulated data with functions
+- a class constructor contains definitions that allow objects/instances of the class to be made
+    - functions will be declared public
+    - variables will be private
+    - functions will be operations you can use on an object
+    - EX:
+        class ClassName{
+            public:
+                void function(parameters);
+        };
+5.2 Using a Class
+- string is a class and to use, you must have "#include <string>"
+5.3 Defining a Class
+- classes have private data members only class can access, but not the user
+- under function declarations, functions need to be defined which looks like:
+    void myClass::functionName(){
+        //the :: is the scope resolution operator
+    }
+    //notice difference between declaration and definition
+5.4 Inline Member function
+- you can define a fucntion and declare in the same line
+- normally variables need to be declared before they are used, but class definitions are an exception
+- keep consistent with inline and not inline definition
+- if short enough, you can write a function on a single line
+5.5 Mutators, Accessors, and Private Helpers
+- mutator modifies a class member, accessor ..., setter and getter functions respectively
+- private helpers are private functions which help the public functions carry out tasks
+5.6 Initialization and Constructors 
+- good practice to intialize variables when u declare them
+- a constructor is a special class member function 
+    - it is called automatically when a variable of that class type is declared
+    - a constructor callable without arguements is a default constructor
+    - a constructor has the same name as the class and has no return types, not even void
+        EX: Restaurant::Restaurant(){
+
+        }
+    - not defining a constructor is the same as defining a constructor with no statements
+    - the constructor is called everytime an object is made
+    - you can initialize a private data member when it is declared, 
+        but sometimes initialization is complicated and constructors are preferred
+5.7 Classes and Vectors/Classes
+- vectors are often used as private members of classes
+5.10 Constructor Overloading
+- sometimes programmers wish to create an obeject of class constructor with different initial values
+    - a class creator can overload a contructor with parameters
+    - simple create multiple contructors of same name, but with different parameters
+- good practice to declare a default constructor
+- constructors may have default parameter values
+    - EX: YourClass(string name = "", int num = 0); //valid and YourClass obj; is supported
+    - EX:   YourClass();
+            YourClass(string name = "", int num = 0); //error bc YourClass obj; could call both
+5.11 Constructor initializer lists
+- a constructor initializer list is an alternative approach for initializing data members for a constructor
+    - EX: SampleClass::SampleClass() {
+            field1 = 100;
+            field2 = 200;
+        }
+    BECOMES
+        SampleClass::SampleClass() : field1(100), field2(200) {
+        }
+5.12 The 'this' Implicit Parameter //review this more!
+- the object is implicitly passed as a parameter with the compiler
+- so object.Function(...) can be thought of as Function(obj, ...)
+    - the object is known as the implicit parameter of the function
+    - this parameter object is specifically passed as a pointer to the object
+- within a member, the implicitely passed object can be acessed using 'this'
+- EX: 
+    void ShapeSquare::SetSideLength(double sideLength) {
+        this->sideLength = sideLength;
+        // Data member      Parameter
+    }
+    //the same name for the paramter is allowed bc paramter name dominates
+
+5.13 Miscellaneous Pointer Issues
+- Recall that each member function of a class has an implicit local variable named "this"
+- we use -> bc "this" is a pointer to the class object for which the member function is being called
+5.14 Memory Leaks
+- memory leaks occur when a program allocates memory, then loses access to it 
+    - problem is more memory is wasted as program runs
+    - variables not used anymore need to be freed when done using it 
+    - built in garbage collection in Java frees unreachable memory automatically, it si not standard in C/C++ tho
+5.15 Destructors //this is tricky late at night
+- you can create a new object of a class with 'new' and free it later using 'delete'
+- constructor function automatically initializes object data members, destructors do the opposite and free them
+    - destructors necessary when sub-object/object data member had additional memory allocated
+    - in this case the sub-object memory needs to be freed in addition to the object 
+- Deconstructors have same syntax as a constructor, aka no return type or void, but with a tilde ~
+    - EX: class MyClass {
+            public:
+                ...
+                ~MyClass();
+                ...   
+            };
+            MyClass::~MyClass() {
+            ...
+            }
+    - EX: needed when constructor opens a file, deconstructor can close it
+5.16 Copy Constructor
+- for a constructor to copy an entire object, known as a deep copy, as a local variable that is called automitcially
+    - recall constructors are a special class member that is called automatically when object is created 
+    - recall overloading uses different return types and parameters to create different constructors of the same name
+- EX: copy contructor //PRACTIVE THIS
+    class MyClass {
+        public:
+            ...
+            MyClass(const MyClass& origClass);
+            ...
+    };
+- EX: 
+    CarCounter::CarCounter(){
+        carCount = 0;
+    }
+
+    CarCounter::CarCounter(const CarCounter& parking){
+        carCount = parking.CarCount;
+    }
+
+    int main(){
+        CarCounter parking;
+        ....
+        CountPrinter(parking);
+    }
+5.17 Copy Assignment Operator
+- sometimes assigningi class objects to each other using '=' causes problems
+    - so overload with a copy assignment operator, or assignment operator which looks like
+        class MyClass {
+            public:
+                ...
+                MyClass& operator=(const MyClass& objToCopy);
+                ...
+        };
+
+        MyClass& MyClass::operator=(const MyClass& objToCopy) {
+            cout << "Assignment op called." << endl;
+            
+            if (this != &objToCopy) {           // 1. Don't self-assign
+                delete dataObj;                  // 2. Delete old dataObj
+                dataObj = new int;               // 3. Allocate new dataObj
+                *dataObj = *(objToCopy.dataObj); // 4. Copy dataObj
+            }
+            
+            return *this;
+        }
+5.18 Rule of Three
+- the big three are deconstructor, copy constructor, and copy assingment operator
+- rule of three describes if a programmer explicity defines any of these three functions, they should define all three
+
+
+Class
+Constructors and Destructors
+- constructors initialize objects, Deconstructors clean objects aka free the memory 
+Accessors and Mutators
+- accessors denoted by 'const' bc no value will be changed
+- Object Desingn Exercise: soda machine header file
+    #include <string>
+
+    class SodaMachine{
+        private:
+            (data members...)
+        public:
+            (funcitons accessors and mutators..)
+    };
+Class Desingn
+- What data members does it need?
+- How are users going to interact with the class?
+Implementing Functions
+- void BankAcct::print(), :: means print belongs to BankAcct class
+Alternative Constructor Syntax
+- practice this bc it shows up later
+Note: always think about what kind of error can occur and prepare for it
+Implementation Exercise
+- i guess look at it, do you understand everything?
+Using Classes
+- Anonymous object??
+Class Pointers
+- strptr->length() == (*strptr).length
+- '*' dereference operator
+- Allows more control of when contructor is called w 'new' and destructor w 'delete'
+Exercise
+- transferTo(pointer parameter)
+- you can access private members of a different 'bank account' of same class type through a member function aka a function inside the class 
+Inline Function Definitions
+- yeah do it if u want
+Vectors of Objects
+- vector<className> vectorName;
+- emplace_back vs push_back
+
+
+TODO:
+- creat a list of all the functions we've learned for stings, vectors, etc.

@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+- cin >> variable
+- cout << variable
+- static_cast<type>(expression)
+- bool isTrue = true;
+- getline(cin, variable);
+- get
+#include <string>
+- istringstream variable(stringValue);
+- ostringstream variable(stringValue);
+#include <sstream>
+- 
+#include <fstream>
+- ifstream inFS;
+- inFS.open(string);
+- inFS.is_open();
+- inFS.close();
+- inFS.eof();
+- inFS.fail();
+- inFS.good();
+- inFS.bad();
+- fgets(variable, max num characters, file_pointer)
+#include <limits>
+- numeric_limits<streamsize>::max()
+#include <vector>
+- vector<type>vectorName(size);
+- vectorName.at(index);
+- vector.size();
+- vectorName.resize();
+- vector.push_back(value);
+- vecor.back();
+- vector.pop_back(); //removes last element
+#alternate way to write a constructor
+- instead of Class::Class(){
+    dataMember = value;
+}
+- write Class::Class(): dataMember(value), ... {
+
+}
