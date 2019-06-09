@@ -15,9 +15,9 @@ public:
   MyString(const char*);
   
   MyString(const MyString&);
-  MyString(MyString&&);
+  MyString(MyString&&);//move constructor
   const MyString& operator=(const MyString&);
-  const MyString& operator=(MyString&&);
+  const MyString& operator=(MyString&&);//move assignment
   ~MyString();
 
   int size() const { return len; }
