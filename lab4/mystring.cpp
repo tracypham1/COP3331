@@ -5,16 +5,20 @@
 
 //Default constructor: empty string
 MyString::MyString(){
-    //char blank[] = " ";
-    //str = blank;
-    str = new char[2];
-    str[0] = '\0';
+    str = new char[2]; 
+    str[0] = '\0'; 
     len = strlen(str);
 }
 
 //const char* constructor:  initializes data members appropriately
 MyString::MyString(const char* s){ 
-    len = strlen(s);
+    //len = strlen(s);
+    //using the string library was not prohibited, but just in cases
+    //proof of concept for finding length of a char* pointer, cstring
+    len = 0;
+    for(int i = 0; s[i] != '\0'; i++)
+        len++;
+
     str = new char[len+1];
     int i;
     for(i = 0; i < len; i++)
@@ -28,24 +32,21 @@ MyString::MyString(const MyString& copy){
     len = copy.len;
     str = new char[len+1];
 
-    //strcpy(str, copy.str);
-    //replacing this line w because it doesn't call copy assignment?
+    //the copy constructor does not call the copy assignment
     int i;
     for(i = 0; i < len; i++)
         str[i] = copy.str[i];
     str[i] = '\0';
-
-    //strcpy(str, copy.str);
-    //we redefine the '=' to make str = copy.str copy each element
-    //didn't work before bc the str pointers are pointing to arrays
 }
 
 //Copy assignment operator:  prints "Copy assignment" and endl in addition to making a copy
+//you can't call the = operator overload bc the object has not been created yet
 const MyString& MyString::operator=(const MyString& rhs){
     cout << "Copy assignment" << endl;
     len = rhs.len;
     delete[] str;
     str = new char[len+1];
+    
     int i;
     for(i = 0; i < rhs.len; i++)
         str[i] = rhs.str[i];
@@ -84,9 +85,7 @@ MyString::MyString(MyString&& move){
 }
 
 //Move assignment operator:  prints "Move assignment" and endl in addition to moving data
-//what is this?
 const MyString& MyString::operator=(MyString&& rhs){
-    //why do we delete here? how tf doe '+' even call this??
     cout << "Move assignment" << endl;
     len = rhs.len;
 
@@ -99,7 +98,7 @@ const MyString& MyString::operator=(MyString&& rhs){
   
     rhs.str = nullptr;
     return *this;
-}//same as the copy assignment? but the moveconstructor takes(Mystring &&), so we couldnt use the previously defined one??
+}
 
 //Destructor
 MyString::~MyString(){
@@ -114,9 +113,7 @@ char& MyString::operator[](int i){
 
 //Print function that works with cout
 ostream& operator<<(ostream& out, const MyString& rhs){
-    //called cout << Mystring object;
-    out << rhs.str;
-    return out;
+    return out << rhs.str;
 }
 
 

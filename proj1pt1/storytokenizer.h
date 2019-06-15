@@ -5,12 +5,13 @@
 
 class StoryTokenizer{
 private:
+    //assume theres always content to read, so set nextPass to true in constructors
     bool nextPass;
     string anime;
 
 public:
-    StoryTokenizer(); //makes use of passageTokenizer functions
-    StoryTokenizer(string s) { anime = s; } //set this story string to 'anime'
+    StoryTokenizer() { nextPass = true; } //makes use of passageTokenizer functions
+    StoryTokenizer(string s); //set this story string to 'anime'
     bool hasNextPassage() { return nextPass; }
     PassageToken nextPassage(); 
     

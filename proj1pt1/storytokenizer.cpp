@@ -1,5 +1,9 @@
 #include "storytokenizer.h"
 
+StoryTokenizer::StoryTokenizer(string s){ 
+    anime = s;
+    nextPass = true; 
+}
 
 PassageToken StoryTokenizer::nextPassage(){
     //get the line from anime and use string functions find, substr, at from <string>
