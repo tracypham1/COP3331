@@ -1,0 +1,72 @@
+Readings 
+9.1 Derived Classes
+- The produceItem class is a subclass/derived class of genericItem
+    - subclasses are exaclty the same as the base class, but with additional items
+    - EX: class produceItem : public genericItem {/*...*/} ;
+    - this concept is called Inheritance
+- Express class inheritance, use Unified Modeling Language (UML)
+    - member access: private (-), public (+), protected (#)
+- Multiple variations/adaptations of class inheriting
+    - EX: subclass can be a base class
+            class FruitItem : public ProduceItem {/*...*/};
+    - EX: class can be base to many Classes
+            class FruitItem : public GenericItem {/*...*/};
+    - EX: single class can have multiple bases
+            class FruitItem : public ProduceItem, public GenericItem {/*...*/};
+9.2 Access by Member of Derived Classes
+- a subclass is does not have access to private members declared in the base class
+- a third access specifier is "protected"
+    - this only grants access to derived classes, no one else
+- in class DerivedClass : public BaseClass {/*...*/};
+    - 'public' refers to how base class specifies access of base class
+    - EX: 
+        public: public-->public and protected-->protected
+        protected: public-->protected and protected-->protected 
+            public and protected members of BaseClass are accessible as protected members of DerivedClass
+        private: omitted type in header defaults to private, so class DerivedClass : BaseClass {};
+9.3 Overriding Member Functions
+- A derived class may have a function with same name as function in base class
+    - this overrides the previous definition in the base class
+- overriding is using the same name and parameters, where overloading uses different parameters
+    - overriding a function allows that function to call the original base class definition
+    - EX: the derived function must have a reference to previous
+        class ProduceItem : public GenericItem{
+            void PrintItem(){
+                GenericItem::PrintItem(); //not having the reference to the base class causes a recursive call --> error
+                cout << "(Expires: " << expirationDate << ")" << endl;
+            }
+        };
+    - override-->derived class has function w same name and parameters
+    - overload-->function has same name, but diff parameters; allowed to call previous definition
+9.4 Polymorphism and Virtual Member Functions
+- Polymorphism refers to determining which program behavior to execute based on data types
+    - EX: compiler polymorphism is when the compiler determines which same named functions to call based on parameters
+          runtime polymorphism is when compiler does not determine, but as the program executes, aka derived classes
+- derived/base class pointer conversion, converts a pointer to a derived class to a pointer to a base class without any explicit casting
+    - a vector of BaseClass functions > vector.push_back(DerivedClass) 
+    - the element only holds base class members 
+    - since both base and derived class have print statements, to call the correct one append virtual before a function
+- pure virtual Functions
+    - EX: class GenericItem {
+            ...
+            virtual void PrintItem() = 0;
+            ...
+        };    
+        //pure virtual function means function is defined in a derived class
+        //a class that has at least one pure virtual function is an abstract base class 
+- objects cant be made with abstract base classes
+- this abstract base class makes subclasses more uniform including collection of those objects via polymorphism
+    - if derived classes do not override the abstract base class with the pure virtual function, that derived subclass becomes abstract as well
+- virtual keyword used when we have pointers to objects (base or derived) to tell compiler which function definition to use
+- possible warnings when using virtual functions:
+    - inventory.cpp:6: warning: 'class GenericItem' has virtual functions but non-virtual destructor
+    - inventory.cpp:19: warning: 'class ProduceItem' has virtual functions but non-virtual destructor
+9.5 Is-a versus has-a Relationship
+- inheritance is not composition, composition is using objects of other classes within a class
+    - composition refers to a class object 'has-a' member with another class object
+    - EX: inheritance-->MotherClass 'is-a' type of PersonClass
+10.1 Exception Basics
+- Error-checking code is code programmers write to detect and handle errors during program execution
+- an exception is a circumstance the program was not designed to handle, such as when the user enters a negative number
+- ifelse statements obscure code and can cause redundancies
+- exception-handling constructs use special keywords to keep error checking codes separate
