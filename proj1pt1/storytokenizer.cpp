@@ -1,51 +1,48 @@
 #include "storytokenizer.h"
 
 StoryTokenizer::StoryTokenizer(string s){ 
-    anime = s;
+    story = s;
     nextPass = true; 
 }
 
+//a passage is a single line in the file enclosed by tags <tw-passagedata...>
 PassageToken StoryTokenizer::nextPassage(){
-    //get the line from anime and use string functions find, substr, at from <string>
-    //to episode.setName(n) and episode.setText(t)
-    PassageToken episode;
-    size_t start;
-    size_t end = anime.find("</body>");
+    //get the line from story and use string functions find, substr, at from <string> to passage.setName(n) and passage.setText(t)
+    PassageToken passage;
 
-    string n("");
+    //use character to find name of the PassageToken
     //start is the index of n, +6 is the start of the name
-    start = anime.find("pid=");
+    string n(""); 
+    size_t start = story.find("pid=");
     if(start != std::string::npos)
-        for(int i = start + 14; anime.at(i) != '"'; i++)
-            n += anime.at(i);
-    episode.setName(n);
+        for(int i = start + 14; story.at(i) != '"'; i++)
+            n += story.at(i);
+    passage.setName(n);
 
+    //use certain character to find test of the PassageToken
+    //start is redefined as the index of a char+constant to determine beginning of text
     string t("");
-    //start is the index of t, +6 is the start of the text
-    //this method means the text cannot contain '<'
     int j;
-    start = anime.find("position");
+    //this method means the text cannot contain '<'
+    start = story.find("position");
     if(start != std::string::npos)
-        for(j = start + 19; anime.at(j) != '<'; j++)
-            t += anime.at(j); 
-    episode.setText(t);
+        for(j = start + 19; story.at(j) != '<'; j++)
+            t += story.at(j); 
+    passage.setText(t);
 
     //Note: only works if the distance from p in position is the same from first character of text
     //this strat sets name and text as " " if the occurance is not found
 
-    //if both name and text == " ", no nextPass
-    //...actually check for next occurance, so we dont print an empty passage
-    //understand the thing about start+1 here, the second occurance or whatever >> start parameter is where to start searching
-    size_t nextOccurN;
-    nextOccurN = anime.find("pid=", start);
-    if(nextOccurN == std::string::npos) 
+    //if there is a next passage, remove this passage from the story
+    size_t nextOccur = story.find("pid=", start); //start refers to middle of the last passage defined above
+
+    if(nextOccur == std::string::npos) 
         nextPass = false;
     else{ 
         nextPass = true;
-        anime = anime.substr(j, end);
+        size_t end = story.find("</body>");
+        story = story.substr(j, end); //redefine giant story string
     }   
-    //gotta change where anime starts each time
-    //redefine anime string
-
-    return episode;
+   
+    return passage;
 }
