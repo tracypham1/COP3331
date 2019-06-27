@@ -30,6 +30,7 @@ int main()
   StoryTokenizer st(story);
 
   //Iterate through all of the passages in the story
+
   int pass = 0;
   while (st.hasNextPassage())
   {
@@ -37,15 +38,16 @@ int main()
     PassageToken ptok = st.nextPassage();
 
     //possibly verify text was extracted properly
-    //cout << ptok.getText() << endl;
     PassageTokenizer pt(ptok.getText());
 
     //Iterate through all of the parts of the passage
     pass++;
     cout << "Passage " << pass << ":  " << endl;
+
     while (pt.hasNextPart())
     {
-      PartToken stok = pt.nextPart();
+      PartToken stok = pt.nextPart(); //ISSUE HERE
+    
       switch (stok.getType())
       {
       case LINK:

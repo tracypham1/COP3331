@@ -1,14 +1,15 @@
 #include "storytokenizer.h"
 
+PassageToken::PassageToken() : name(" "), text(" ") { /*...*/ }
+
 StoryTokenizer::StoryTokenizer(string s){ 
     story = s;
     nextPass = true; 
 }
 
-//a passage is a single line in the file enclosed by tags <tw-passagedata...>
+//get the line from story and use find, substr, and at from <string> 
 PassageToken StoryTokenizer::nextPassage(){
-    //get the line from story and use string functions find, substr, at from <string> to passage.setName(n) and passage.setText(t)
-    PassageToken passage;
+    PassageToken passage;string
 
     //use character to find name of the PassageToken
     //start is the index of n, +6 is the start of the name
