@@ -66,7 +66,38 @@ Readings
     - composition refers to a class object 'has-a' member with another class object
     - EX: inheritance-->MotherClass 'is-a' type of PersonClass
 10.1 Exception Basics
-- Error-checking code is code programmers write to detect and handle errors during program execution
-- an exception is a circumstance the program was not designed to handle, such as when the user enters a negative number
-- ifelse statements obscure code and can cause redundancies
-- exception-handling constructs use special keywords to keep error checking codes separate
+- Error-checking code is code written to check errors during run time
+- an exception is a circumstance a program was not meant to handle, such as when a user enters a neg num 
+    - note: static_cast<float>
+- ifelse statements can be redundant and obscure the code, so
+    - we use 'try' 'throw' 'catch' aka exception-handling constructs
+    - EX: syntax
+        //... means normal code
+        try{
+            ...
+            //if error detected
+            throw objectofExceptionType;
+            ...
+        }
+        catch (exceptionType exceptObj){
+            //handle exception, aka print message
+        }
+        ...
+- how try, throw, and catch handle errors
+    - try block surrounds a normal block of code and exits as soon as a throw statement is executed.
+    - if and when throw statement executes, it immediately exits to tend of try
+        - code before throw written so only errors will lead to throw 
+        - throw provides a specific type, specified in catch parameter, such as "runtime_error" from stdexcept library
+            - throw syntax similiar to return
+        - when catch reached, only bc object was thrown, and is called a handler bc it handles the exception thrown
+            - this is where you put an error message
+            - catch parameter usually passed by reference
+        - try blocks must be followed by a catch block
+        - catch blocks are not executed if no object was throen, aka throw statment was not executed
+10.2 Exceptions with Functions
+- if there is not try surrounding a throw statement function, the function exits and the try/catch block is check at the calling statement
+- throws in a function leaves the function and immediately jumps to the catch block
+10.3 Multiple Handlers
+- different throws in a try block may jump to different catch blocks, depending on the throw object type defined in the catch parameter
+- catches are executed from top to bottom, so if one is executed, exception is handled at the catch block after is never executed
+

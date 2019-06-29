@@ -1,0 +1,139 @@
+Readings
+11.1 List
+- 'list' is a class defined in the standard C++ <STL> lilbrary
+    - it defines a container or ordered items
+    - it is a double linked list
+    - EX: syntax
+        #include <list>
+        list<string> myList;
+        myList.push_back("hello"); //adds to end
+        myList.push_front("world"); //adds to push_front
+        myList.front(); //returns first element and .back()
+        ....pop_back()
+        pop_front()
+        .remove() //removes all instances of parameter passed
+- An iterator is an object that points to an object in a list
+    - it is bidirectional
+    - EX: declare an iterator to point at a list of integers
+        
+        list<int>::iterator it;
+    - EX: using the iterator to print objects in a list
+        
+        list<string> myList;
+        list<string>::iterator it;
+        for(it = myList.begin(); it != myList.end(); ++it){//begin and end point just before and after list
+            name = *it;
+            cout << name << endl;
+        }
+- Insert and remove elements using iterators
+    - myList.insert(iterator, element) adds one or more element to before the position of the iterator
+    - myList.erase(iterator) the element the iterator points to is removed
+        - two values passed to myList.erase(iteratorFirst, iteratorLast or iteratorFirst+2) is a range, removes val at iterator until the second val, but 2nd val remains
+- a list can be accessed with a range based loop instead of an iterator
+    - EX: range for loop
+        
+        list<string> team;
+        team.push_back("tim");
+
+        cout << "current roster:" << endl;
+        for(string& name : team){
+            cout << name << endl;
+            name = "new name"; //you may change that item in the list bc its a string reference
+        }
+11.2 The Pair List
+- pair is part of C++ STL library and is a conta of two data elements
+    - many STL container classes contain pairs internally and return pairs, like maps with key-value pairs
+    - to use #include <utility>
+    - EX: define a pair syntax
+        
+        pair<F, S> pairObj;
+        pair<int, string> combo; //where first element is int and second is a string
+    - EX: make_pair() creats a pair variable with the first and second value
+        
+        pair<string, int> carPair;
+        carPair = make_pair("Cali", 1990);
+        cout << "first and second element: " 
+                << carPair.first;
+                << carPair.second << endl;
+
+11.3 Map
+- map class within the C++ STL defines a container that associates keys to values
+    - must #include <map>
+    - EX: map<K, V> newMap;
+    - .emplace() associates a key with a value
+        - if key doesn't exist, new entry created
+        - is it does exist, the map value is NOT updated
+    - .at(key) can be used to access or change the variable associated with the key
+    - EX: using emplace and at to change values of a map
+        
+        map<string, int> population;
+        population.emplace("FL", 10);
+        population.emplace("AZ", 11);
+        population.emplace("WA", 12);
+
+        cout << "population in AZ is " << population.at("AZ") << endl;
+        //update the population... rip
+        population.at("AZ") = 10;
+    - map.count(value) returns 1 if the value exists and 0 otherwise
+        - if u use map.at(value) and value doesn't exist, an exception is thrown
+    - review common map functions for more
+        - .erase(key) erases the value associated with the key but not the key itself
+        - .clear() removes all map entries
+        - .insert() exists, but must be explicitly constructed first?
+11.4 Set
+- Set class is in the C++ STL standard library defines a collection of unique elements
+    - supports adding, removing, and querying elements
+    - is an abstract data type (ADT)
+    - EX: syntax
+
+        #include <set>
+        set<string> mySet;
+
+        mySet.insert("string");
+        mySet.erase("string");
+        mySet.erase("string");
+    - insert() does not duplicate elements, only adds element is it DNE already
+        - if add duplicate element, returns pair object of iterator at existing element and false
+        - else returns iterator where element is created and true
+    - erase() removes element and returns 1
+        - if element did not exist, return 0
+11.5 Queue
+- Queue is a class defined in STL which defines container of order elements
+    - allow insert at tail and remove at tail
+    - EX: syntax
+
+        #include <queue>
+        queue<T> newQueue;
+    - push() adds element to tail of queue and increse queue size by 1
+    - front() returns the element at the head of the queue
+        - check queue with size() before use or front() will return undefined behavior
+    - pop() removes the element at head of queue
+11.6 Deque (pronounces "deck")
+- Deque is a class ADT from C++ STL, a contianer of ordered elements 
+    - allows insertion and removal at head and tail of the deque
+    - syntax: 
+
+        #include <deque>
+        deque<T> newDeque;
+    - push_front() adds element to head of deque
+    - front() returns element at head
+    - pop_front() removes element at head  
+        - undefined behavior if deque is empty
+- using only the front functions treats a deque as a 'stack'
+    - stacks are an ADT where elements are only added and removed from the top of the stack
+    
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+

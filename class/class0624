@@ -1,0 +1,38 @@
+Reading for 0624
+12.1 Function Templates
+- a function template is a function definition of a special data type for return and parameters
+    - this is used for functions that perform identically, but with diferent types
+    - EX: finding the min of three ints and finding the min of three chars
+- function templates allows a function to handle various data types
+    - EX: syntax
+        template<typename TheType> //precedes function return type
+                                   //TheType can be any identifier known as a type parameter
+                                   //this identifier can be int, char, pointer, reference, or even another template parameter
+                                   //this identifier is a template parameter used anywhere within template function
+        TheType TripleMin(TheType item1, TheType item2, TheType item3){
+            TheType minVal = item1;
+
+            if(item2 < minVal)
+                minVal = item2;
+            ...
+
+            return minVal;
+        }
+
+        int main(){
+            cout << TripleMin(num1, num2, num3) << endl;
+            cout << TripleMin(str1, str2, str3) << endl;
+        }
+- function template with multiple parameters   
+    - EX: syntax
+        template<typename T1, typename T2>
+        ReturnType FunctionName(Paramters){
+            ...
+        }
+12.2 Class Templates
+- class templates can be created to replicate same classes with same functions but different types
+    - just like function templates, you need to declare the variable of that class used to indicate specific type 
+    - notice the keyword 'typename'
+- to have multiple parameters for the class 
+    - EX: template<typename T1, typname T2>
+        //the T1 and T2 are general placeholder for a type called
