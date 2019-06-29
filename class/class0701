@@ -1,0 +1,32 @@
+Readings for 0701
+3.12 Vector ADT
+- a vector is a class ADT in C++ STL that allow for an indexable, ordered list of items
+    - empty() returns true is size is zero
+    - clear() removes all elements of a vector so size is 0
+        an element at position 0 DNE
+    - erase(iteratorPosition) removes element at position and shifts everything after up one
+    - insert(iteratorPosition, const T& x) copies x to that poisiton, shifts element at that positon and after one over, vector incriments
+        - using insert sorts values in ascending order, increases down the list
+
+ 3.13 Auto (since C++11) 
+ - auto is a type specifier that causes compiler to automatically deduce the type from the initialize, so
+    - EX: syntax
+    
+        const auto x = 5; //assume x is type const int, which is legal
+        auto j = 5.0; //assumes j is type double    
+        auto s = "Hello"; //assume s is const char* bc its simpler than a string literal
+3.14 Range Based For Loop
+- range based for loops (also for each loop) iterates through each element of a vector or container
+    - declares a new variable that will be assigned to each element
+- to modify elements of the array, make the reading variable a type reference
+    - EX: modifying for each vector loop
+
+        for (double& gradeVal : examGrade){ //gradeVal needs to be same type as elements of ExamGrade
+            double userGrade;
+            cin >> userGrade;
+            gradeVal = userGrade;
+        }
+    - use 'auto' for gradeVal 
+        - a common practice with range based/for each loops
+    
+
