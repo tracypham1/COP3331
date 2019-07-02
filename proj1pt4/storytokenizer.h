@@ -1,6 +1,7 @@
 #ifndef __STORYTOKENIZER_H
 #define __STORYTOKENIZER_H
 
+#include <cstring>
 #include <string>
 #include <vector>
 #include "passagetokenizer.h"
@@ -16,7 +17,7 @@ class PassageToken
         int num;
     public:
         PassageToken(vector<string>, int);
-        string getName();
+        const char* getName();
         string getText();
 };
 

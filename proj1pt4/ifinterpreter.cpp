@@ -30,8 +30,8 @@ IFInterpreter::IFInterpreter(string filename)
     while (st.hasNextPassage())
     {
         PassageToken passtok = st.nextPassage(); // Construct PassageToken object
-        PassageToken* ptr = &passtok; 
-
+        PassageToken* ptr = new PassageToken(passtok);
+        
         passage.push_back(ptr); // Add PassageToken* to vector pass
         pass.insert(make_pair(passtok.getName(), passtok.getText())); // Maps the name and text together
     }
@@ -40,11 +40,13 @@ IFInterpreter::IFInterpreter(string filename)
 
 void IFInterpreter::print()
 {
-    int pass_num = 0;
+    //int pass_num = 0;
 
     //check vector<PassageToken*> passage initialized correctly in constructor
-    while(pass_num < passage.size()){
-        cout << "passage name at " << pass_num+1 << ": " << passage.at(pass_num)->getName << endl;
+   
+   for(int pass_num = 0; pass_num < passage.size(); ++pass_num){
+        string name = passage.at(pass_num)->getName();
+        cout << "passage name at " << pass_num << ": " << name << endl;
     }
 
 /*************    

@@ -52,7 +52,7 @@ PassageToken::PassageToken(vector<string> s, int n)
     num = n; // Copies the current passage number 
 }
 
-string PassageToken::getName()
+const char* PassageToken::getName()
 {
     string delim1 = "name=\"";
     string delim2 = "\" tags";
@@ -60,7 +60,7 @@ string PassageToken::getName()
 
     if (num >= str.size())
     {
-        return name; // Returns empty string there are no more passages
+        return name.c_str(); // Returns empty string there are no more passages
 
     } else
     {
@@ -72,7 +72,7 @@ string PassageToken::getName()
         name = story.substr(end_of_first, end_of_last);
     }
 
-    return name;  
+    return name.c_str();  
 }
 
 string PassageToken::getText()
